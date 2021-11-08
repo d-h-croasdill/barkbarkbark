@@ -1,0 +1,14 @@
+:: StoryData
+{
+	"ifid": "520538D4-4981-462D-A9BF-6870ABDAF177",
+	"start": "Start",
+    "format": "Harlowe",
+    "format-version": "3.2.2",
+    "zoom": 1
+}
+
+:: StoryTitle
+    in space, no one can hear you bark
+
+:: Start
+    This is the start passage
