@@ -10,16 +10,223 @@
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play in space, no one can hear you bark.</tw-noscript></noscript></tw-story>
 <!-- UUID://520538D4-4981-462D-A9BF-6870ABDAF177// --><tw-storydata name="in space, no one can hear you bark" startnode="2" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="520538D4-4981-462D-A9BF-6870ABDAF177" zoom="1" format="Harlowe" format-version="3.2.2" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">body, tw-story{
-=
+	background-color: antiquewhite;
+	color: #292929;
+	width:300px;
+	height:500px;
+	padding:0;
+	margin:5%;
+	font-family: Georgia,serif;
+	font-size:1em;
 }
 
 tw-passage{
-=
+	background-color:#000218;
+	padding:5%;
+	width:100%;
+	height:100%;
 }
 
 tw-sidebar{
 	display:none;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="start" tags="" position="100,100" size="100,100"></tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="225,100" size="100,100">This is the start passage</tw-passagedata></tw-storydata>
+
+}
+
+#image-container{
+	background-color:white;
+	width:100%;
+	height:15%;
+	left:0;
+	top:0;
+	outline:1px red solid;
+	position:absolute;
+}
+
+#passage-container{
+	background-color: #d2e7e7;
+	outline:5px inset #94a0a0;
+	position: absolute;
+	left:10%;
+	top: 20%;
+	overflow-x: hidden;
+	/* overflow-y: hidden; */
+	display: flex; 
+	flex-direction: column-reverse;
+	width:80%;
+	height:75%;
+}
+
+/* dialog */
+/* to change the structure of the boxes, edit the .dialog class. largely, you will not have to do this. */
+
+.dialog{
+	border-left: 12px solid;
+	padding-left:2%;
+	width:80%;
+	height:auto;
+}
+
+.choice{
+	background-color:#d4d4d4;
+	border-right: 12px solid;
+	width:90%;
+	padding:5%;
+	margin-left:5%;
+}
+
+/* to change the color & position of specific character's boxes, edit each of these. if you want to change how the boxes look in a specific passage, i can show you how to do this in the .twee file itself */
+
+.red{
+	border-color:red;
+	background-color: #dbb3b3;
+	color: #460000;
+	margin-left:0;
+}
+
+.blue{
+	border-color:blue;
+	background-color:#c2c2db;
+	color:#060647;
+	margin-left:15%;
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">// this is the bit of js that automatically scrolls the contents of the passage-container div to the bottom.
+
+// window.setInterval(function() {
+//     var elem = document.getElementById('passage-container');
+//     elem.scrollTop = elem.scrollHeight;
+//   }, 5000);
+</script><tw-passagedata pid="1" name="start" tags="" position="100,100" size="100,100"></tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="225,100" size="100,100">(goto: &quot;container-main&quot;)</tw-passagedata><tw-passagedata pid="3" name="container-main" tags="" position="350,100" size="100,100">&lt;div id=&quot;image-container&quot;&gt;&lt;img src=&quot;AAA&quot;&gt;&lt;/img&gt;&lt;/div&gt;
+    
+    &lt;div id=&quot;passage-container&quot;&gt;
+        (display:&quot;intro&quot;)
+    &lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="intro" tags="" position="475,100" size="100,100">{
+    (set: $passive to true)
+    
+    &lt;!-- this is the code that&#39;s controlling the passage&#39;s behavior &amp; interactivity. 
+    
+    to tune the speed at which the elements are shown, change the value in the (after:) macro to a value using either s (seconds) or ms (milliseconds) --&gt;
+
+        (after: time + 1s)[(show:?red1)]
+        (after: time + 2s)[(show:?blue1)]
+        (after: time + 3s)[(show:?red2)]
+        (after: time + 4s)[(show:?blue2)]
+        (after: time + 5s)[(show:?red3)]
+        (after: time + 6s)[(show:?blue3)]
+        (after: time + 7s)[(show:?choice)]
+
+        (after: time + 10s)[
+            (if: $passive is true)[
+                (show:?passive)
+            ]  
+        ]
+
+        (if: $passive is false)[
+            (show:?active)
+        ]
+
+    &lt;!-- these are the hidden dialog hooks that the above code is referencing &amp; displaying in the passage 
+    
+    to tune how the boxes look &amp; where they are on the page, go into style.css &amp; look for the &quot;dialog&quot; section.--&gt;
+
+    &lt;!-- to plug dialog you&#39;ve written into this, paste it into the &quot;div class=dialog [color]&quot; section of each hook. i&#39;ve exploded the structure of the first hook below so you can see where that is--&gt;
+
+    |red1)[
+        &lt;div class=&quot;dialog red&quot;&gt;
+             &lt;!-- dialog --&gt;
+             According to all known laws of aviation,
+             &lt;!-- /dialog --&gt;
+         &lt;/div&gt;
+         &lt;br&gt; 
+    ]
+
+    |blue1)[
+        &lt;div class=&quot;dialog blue&quot;&gt;there is no way that a bee should be &lt;/div&gt;&lt;br&gt;
+    ]
+
+    |red2)[
+        &lt;div class=&quot;dialog red&quot;&gt;able to fly. Its wings are too small &lt;/div&gt;&lt;br&gt;
+    ]
+
+    |blue2)[
+        &lt;div class=&quot;dialog blue&quot;&gt;to get its fat&lt;/div&gt;&lt;br&gt;
+    ]
+
+    |red3)[
+        &lt;div class=&quot;dialog red&quot;&gt;little body off the ground.&lt;/div&gt;&lt;br&gt; 
+    ]
+
+    |blue3)[
+        &lt;div class=&quot;dialog blue&quot;&gt;The bee, of course, flies anyway.&lt;/div&gt;&lt;br&gt;
+    ]
+
+    |choice)[
+        &lt;div class=&quot;choice&quot;&gt;(link-reveal:&quot;do something&quot;)[
+            (set: $passive to false)
+            ]&lt;/div&gt;&lt;br&gt;
+    ]
+
+    |passive)[
+        (after:time + .5s)[ 
+            (display:&quot;intro-passive&quot;)
+        ]
+    ]
+
+    |active)[
+        (after:time + .5s)[
+            (display:&quot;intro-active&quot;)
+        ]
+    ]
+}</tw-passagedata><tw-passagedata pid="5" name="intro-passive" tags="" position="600,100" size="100,100">{
+    (after: time + 1s)[(show:?red1)]
+    (after: time + 2s)[(show:?blue1)]
+    (after: time + 3s)[(show:?red2)]
+    (after: time + 4s)[(show:?blue2)]
+    (after: time + 5s)[(show:?red3)]
+    &lt;!-- (after: 7s)[(show:?choice)] --&gt;
+
+
+    |red1)[
+        &lt;div class=&quot;dialog red&quot;&gt;oh fuck i can&#39;t believe we&#39;re doing nothing&lt;/div&gt;
+         &lt;br&gt; 
+    ]
+
+    |blue1)[
+        &lt;div class=&quot;dialog blue&quot;&gt;god it sucks that we&#39;re just sitting here&lt;/div&gt;&lt;br&gt;
+    ]
+
+    |red2)[
+        &lt;div class=&quot;dialog red&quot;&gt;bummer of the century&lt;/div&gt;&lt;br&gt;
+    ]
+
+    |blue2)[
+        &lt;div class=&quot;dialog blue&quot;&gt;yup, guess i&#39;ll just fuckin die&lt;/div&gt;&lt;br&gt;
+    ]
+
+    |red3)[
+        &lt;div class=&quot;dialog red&quot;&gt;you know what? me too.&lt;/div&gt;&lt;br&gt; 
+    ]
+
+    |choice)[
+        &lt;div class=&quot;choice&quot;&gt;choice&lt;/div&gt;&lt;br&gt;
+    ]
+}</tw-passagedata><tw-passagedata pid="6" name="intro-active" tags="" position="725,100" size="100,100">{
+    (after: time + 1s)[(show:?red1)]
+    (after: time + 2s)[(show:?blue1)]
+    (set:passive to false)
+
+    |red1)[
+        &lt;div class=&quot;dialog red&quot;&gt;congrats on doing anything&lt;/div&gt;
+         &lt;br&gt; 
+    ]
+
+    |blue1)[
+        &lt;div class=&quot;dialog blue&quot;&gt;yeah good job&lt;/div&gt;&lt;br&gt;
+    ]
+}
+
+
+
+&lt;!-- HELPFUL  --&gt;
+&lt;!-- HELPFUL  --&gt;</tw-passagedata><tw-passagedata pid="7" name="helper" tags="" position="850,100" size="100,100"></tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">"use strict";var _slicedToArray=function(){return function(e,t){if(Array.isArray(e))return e;if(Symbol.iterator in Object(e))return function(e,t){var n=[],r=!0,a=!1,i=void 0;try{for(var o,s=e[Symbol.iterator]();!(r=(o=s.next()).done)&&(n.push(o.value),!t||n.length!==t);r=!0);}catch(e){a=!0,i=e}finally{try{!r&&s.return&&s.return()}finally{if(a)throw i}}return n}(e,t);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}!function(){
 /**
  * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.

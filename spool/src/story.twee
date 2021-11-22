@@ -11,4 +11,151 @@
     in space, no one can hear you bark
 
 :: Start
-    This is the start passage
+    (goto: "container-main")
+
+:: container-main
+
+    <div id="image-container"><img src="AAA"></img></div>
+    
+    <div id="passage-container">
+        (display:"intro")
+    </div>
+    
+:: intro 
+{
+    (set: $passive to true)
+    
+    <!-- this is the code that's controlling the passage's behavior & interactivity. 
+    
+    to tune the speed at which the elements are shown, change the value in the (after:) macro to a value using either s (seconds) or ms (milliseconds) -->
+
+        (after: time + 1s)[(show:?red1)]
+        (after: time + 2s)[(show:?blue1)]
+        (after: time + 3s)[(show:?red2)]
+        (after: time + 4s)[(show:?blue2)]
+        (after: time + 5s)[(show:?red3)]
+        (after: time + 6s)[(show:?blue3)]
+        (after: time + 7s)[(show:?choice)]
+
+        (after: time + 10s)[
+            (if: $passive is true)[
+                (show:?passive)
+            ]  
+        ]
+
+        (if: $passive is false)[
+            (show:?active)
+        ]
+
+    <!-- these are the hidden dialog hooks that the above code is referencing & displaying in the passage 
+    
+    to tune how the boxes look & where they are on the page, go into style.css & look for the "dialog" section.-->
+
+    <!-- to plug dialog you've written into this, paste it into the "div class=dialog [color]" section of each hook. i've exploded the structure of the first hook below so you can see where that is-->
+
+    |red1)[
+        <div class="dialog red">
+             <!-- dialog -->
+             According to all known laws of aviation,
+             <!-- /dialog -->
+         </div>
+         <br> 
+    ]
+
+    |blue1)[
+        <div class="dialog blue">there is no way that a bee should be </div><br>
+    ]
+
+    |red2)[
+        <div class="dialog red">able to fly. Its wings are too small </div><br>
+    ]
+
+    |blue2)[
+        <div class="dialog blue">to get its fat</div><br>
+    ]
+
+    |red3)[
+        <div class="dialog red">little body off the ground.</div><br> 
+    ]
+
+    |blue3)[
+        <div class="dialog blue">The bee, of course, flies anyway.</div><br>
+    ]
+
+    |choice)[
+        <div class="choice">(link-reveal:"do something")[
+            (set: $passive to false)
+            ]</div><br>
+    ]
+
+    |passive)[
+        (after:time + .5s)[ 
+            (display:"intro-passive")
+        ]
+    ]
+
+    |active)[
+        (after:time + .5s)[
+            (display:"intro-active")
+        ]
+    ]
+}
+
+:: intro-passive
+{
+    (after: time + 1s)[(show:?red1)]
+    (after: time + 2s)[(show:?blue1)]
+    (after: time + 3s)[(show:?red2)]
+    (after: time + 4s)[(show:?blue2)]
+    (after: time + 5s)[(show:?red3)]
+    <!-- (after: 7s)[(show:?choice)] -->
+
+
+    |red1)[
+        <div class="dialog red">oh fuck i can't believe we're doing nothing</div>
+         <br> 
+    ]
+
+    |blue1)[
+        <div class="dialog blue">god it sucks that we're just sitting here</div><br>
+    ]
+
+    |red2)[
+        <div class="dialog red">bummer of the century</div><br>
+    ]
+
+    |blue2)[
+        <div class="dialog blue">yup, guess i'll just fuckin die</div><br>
+    ]
+
+    |red3)[
+        <div class="dialog red">you know what? me too.</div><br> 
+    ]
+
+    |choice)[
+        <div class="choice">choice</div><br>
+    ]
+}
+
+:: intro-active
+{
+    (after: time + 1s)[(show:?red1)]
+    (after: time + 2s)[(show:?blue1)]
+    (set:passive to false)
+
+    |red1)[
+        <div class="dialog red">congrats on doing anything</div>
+         <br> 
+    ]
+
+    |blue1)[
+        <div class="dialog blue">yeah good job</div><br>
+    ]
+}
+
+
+
+<!-- HELPFUL  -->
+<!-- HELPFUL  -->
+:: helper
+
