@@ -18,4 +18,4 @@ function playSFX(){
   }
 }
 
-setInterval(playSFX, 500);
+setInterval(playSFX, 1);

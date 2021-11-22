@@ -29,22 +29,24 @@
     
     to tune the speed at which the elements are shown, change the value in the (after:) macro to a value using either s (seconds) or ms (milliseconds) -->
 
-        (after: 1s, 0)[(show:?red1)]
-        (after: 2s, 0)[(show:?blue1)]
-        (after: 3s, 0)[(show:?red2)]
-        (after: 4s, 0)[(show:?blue2)]
-        (after: 5s, 0)[(show:?red3)]
-        (after: 6s, 0)[(show:?blue3)]
-        (after: 7s, 0)[(show:?choice)]
+        (after: time + 1s, 0)[(show:?red1)]
+        (after: time + 2s, 0)[(show:?blue1)]
+        (after: time + 3s, 0)[(show:?red2)]
+        (after: time + 4s, 0)[(show:?blue2)]
+        (after: time + 5s, 0)[(show:?red3)]
+        (after: time + 6s, 0)[(show:?blue3)]
+        (after: time + 7s, 0)[(show:?choice)]
 
-        (after: 10s, 0)[
+        (after: time + 10s, 0)[
             (if: $passive is true)[
                 (show:?passive)
             ]  
         ]
 
-        (if: $passive is false)[
-            (show:?active)
+        (live:)[
+            (if: $passive is false)[
+                (show:?active)
+            ]
         ]
 
     <!-- these are the hidden dialog hooks that the above code is referencing & displaying in the passage 
@@ -103,11 +105,11 @@
 
 :: intro-passive
 {
-    (after: time + 1s)[(show:?red1)]
-    (after: time + 2s)[(show:?blue1)]
-    (after: time + 3s)[(show:?red2)]
-    (after: time + 4s)[(show:?blue2)]
-    (after: time + 5s)[(show:?red3)]
+    (after: time + 1s, 0)[(show:?red1)]
+    (after: time + 2s, 0)[(show:?blue1)]
+    (after: time + 3s, 0)[(show:?red2)]
+    (after: time + 4s, 0)[(show:?blue2)]
+    (after: time + 5s, 0)[(show:?red3)]
     <!-- (after: 7s)[(show:?choice)] -->
 
 
@@ -139,13 +141,14 @@
 
 :: intro-active
 {
-    (after: time + 1s)[(show:?red1)]
-    (after: time + 2s)[(show:?blue1)]
-    (set:passive to false)
+    (set: $passive to false)
+    (after: time + 1s, 0)[(show:?red1)]
+    (after: time + 2s, 0)[(show:?blue1)]
+    
 
     |red1)[
         <div class="dialog red">congrats on doing anything</div>
-         <br> 
+        <br> 
     ]
 
     |blue1)[
